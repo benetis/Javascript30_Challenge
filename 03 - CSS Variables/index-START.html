@@ -24,10 +24,12 @@
 
     :root {
       --spacing: 10px;
+      --blur: 0px;
     }
 
     img {
       padding-top: calc(var(--spacing) * 2);
+      filter: blur(var(--blur));
     }
 
     /*
@@ -65,12 +67,14 @@
 
     inputs.map((input) => {
       input.addEventListener('input', (event) => {
-
           const srcElement = event.srcElement;
+
           const valueChanged = srcElement.value;
 
+          const name = srcElement.name;
+
           /** Picking up document since vars are declared in root **/
-          document.documentElement.style.setProperty(`--spacing`, valueChanged+'px');
+          document.documentElement.style.setProperty(`--${name}`, valueChanged+'px', '');
 
       })
     })
