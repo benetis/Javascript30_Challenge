@@ -15,7 +15,7 @@
     <input type="range" name="blur" min="0" max="25" value="10" data-sizing="px">
 
     <label for="base">Base Color</label>
-    <input type="color" name="base" value="#ffc600">
+    <input type="color" name="base" value="#ff0000">
   </div>
 
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
@@ -25,11 +25,16 @@
     :root {
       --spacing: 10px;
       --blur: 0px;
+      --base: red;
     }
 
     img {
       padding-top: calc(var(--spacing) * 2);
       filter: blur(var(--blur));
+    }
+
+    .hl {
+      color: var(--base);
     }
 
     /*
@@ -72,9 +77,10 @@
           const valueChanged = srcElement.value;
 
           const name = srcElement.name;
+          const affix = srcElement.dataset.sizing ? srcElement.dataset.sizing : '';
 
           /** Picking up document since vars are declared in root **/
-          document.documentElement.style.setProperty(`--${name}`, valueChanged+'px', '');
+          document.documentElement.style.setProperty(`--${name}`, `${valueChanged}${affix}`, '');
 
       })
     })
