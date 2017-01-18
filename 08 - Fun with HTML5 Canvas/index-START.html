@@ -7,11 +7,46 @@
 <body>
 <canvas id="draw" width="800" height="800"></canvas>
 <script>
+    const canvas = document.querySelector('#draw')
+    const ctx = canvas.getContext('2d')
+
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight
+
+    ctx.lineWidth = 50
+    ctx.lineJoin = 'round'
+    ctx.lineCap = 'round'
+
+    let drawing = false;
+    let drawFrom = {x: 0, y: 0}
+
+    function draw(e) {
+        if (drawing) {
+            ctx.beginPath()
+            ctx.strokeStyle = `hsl(${e.offsetX % 360}, 100%, 50%)`
+            ctx.moveTo(drawFrom.x, drawFrom.y)
+            ctx.lineTo(e.offsetX, e.offsetY)
+            ctx.stroke() //drawing wont happen until we call stroke
+            drawFrom.x = e.offsetX //we update our point
+            drawFrom.y = e.offsetY
+        }
+    }
+
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mousedown', e => {
+        drawing = true
+        drawFrom.x = e.offsetX
+        drawFrom.y = e.offsetY
+    })
+    canvas.addEventListener('mouseout', e => drawing = false)
+    canvas.addEventListener('mouseup', e => drawing = false)
+
+
 </script>
 
 <style>
   html, body {
-    margin:0;
+    margin: 0;
   }
 </style>
 
